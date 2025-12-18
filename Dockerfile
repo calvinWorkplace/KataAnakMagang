@@ -1,21 +1,19 @@
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
-# FORCE disable all MPM first
-RUN rm -f /etc/apache2/mods-enabled/mpm_*.load \
- && rm -f /etc/apache2/mods-enabled/mpm_*.conf
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    nginx \
+    git \
+    unzip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    curl \
+ && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
-# Enable ONLY prefork + rewrite
-RUN a2enmod mpm_prefork rewrite
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Laravel public folder
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf \
-    /etc/apache2/apache2.conf
+# Copy Nginx config
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy app
 COPY . /var/www/html
@@ -25,3 +23,5 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 80
+
+CMD ["sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"]
