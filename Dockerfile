@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     default-mysql-client \
     default-libmysqlclient-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg\
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_pgsql pdo_mysql mbstring exif pcntl bcmath gd zip sodium
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -27,14 +27,16 @@ WORKDIR /var/www/html
 
 COPY . .
 
-EXPOSE 8000
+# ⛔ JANGAN EXPOSE PORT STATIS
+# EXPOSE 8000  ❌ HAPUS
 
-RUN composer install
-RUN npm install
+RUN composer install --no-dev --optimize-autoloader
+RUN npm install && npm run build || true
+
+RUN chmod -R 777 storage bootstrap/cache
 
 CMD php artisan migrate --force \
  && php artisan config:clear \
  && php artisan route:clear \
  && php artisan view:clear \
  && php -S 0.0.0.0:$PORT -t public
-
