@@ -32,5 +32,9 @@ EXPOSE 8000
 RUN composer install
 RUN npm install
 
-CMD php artisan migrate --force && php -S 0.0.0.0:$PORT -t public
+CMD php artisan migrate --force \
+ && php artisan config:clear \
+ && php artisan route:clear \
+ && php artisan view:clear \
+ && php -S 0.0.0.0:$PORT -t public
 
