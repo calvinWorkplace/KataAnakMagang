@@ -2,6 +2,9 @@
 
 Platform komunitas berbasis web untuk mahasiswa dan anak magang — tempat berbagi pengalaman, informasi gaji, dan ulasan perusahaan secara terbuka.
 
+[![Demo](https://img.shields.io/badge/Demo-Google%20Drive-4285F4?style=flat-square&logo=google-drive&logoColor=white)](https://drive.google.com/file/d/1iOXOLJaNvBhbJ8pz83BuDEUfTTYDjVku/view?usp=sharing)
+[![Deploy](https://img.shields.io/badge/Deploy-Railway-0B0D0E?style=flat-square&logo=railway&logoColor=white)](https://kataanakmagang-production.up.railway.app/)
+
 ## Fitur
 
 - **Komunitas** — Forum diskusi untuk berbagi cerita dan pengalaman magang
