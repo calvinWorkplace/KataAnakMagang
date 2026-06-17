@@ -116,6 +116,15 @@ composer run test
 # atau
 php artisan test
 ```
+## 👥 Anggota Kelompok
+
+| No | Nama | NIM |
+|----|------|-----|
+| 1 | Albert Tandy Harison | 2702225612 |
+| 2 | Nikolaus Marvin Liayasa | 2702233702 |
+| 3 | Calvin Suharjono | 2702225846 |
+| 4 | Fransiscus Bronzedior Driandonny Noryon | 2702218992 |
+| 5 | Giovincent Ricel's Tanoto | 2702226786 |
 
 ## Lisensi
 
